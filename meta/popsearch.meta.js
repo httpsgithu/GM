@@ -3,7 +3,7 @@
 // @name:zh					Popup Search: 快捷搜索
 // @author					lkytal
 // @namespace				Lkytal
-// @version					5.2.3
+// @version					5.2.4
 // @icon					https://github.com/lkytal/GM/raw/master/icons/search.png
 // @homepage				https://lkytal.github.io/
 // @homepageURL				https://lkytal.github.io/GM
@@ -34,6 +34,7 @@
 // @connect					google.cn
 // @connect					caiyunai.com
 // @connect					deepl.com
+// @connect					aircode.run
 // @charset					UTF-8
 // @supportURL				https://github.com/lkytal/GM/issues
 // @updateURL				https://git.oschina.net/coldfire/GM/raw/master/meta/popsearch.meta.js

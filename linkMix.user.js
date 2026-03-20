@@ -30,13 +30,11 @@
 // ==/UserScript==
 
 "use strict";
+
 ;
 var clearLink, excludedTags, linkFilter, linkMixInit, linkPack, linkify, observePage, observer, setLink, urlPrefixes, url_regexp, xPath;
-
 url_regexp = /((https?:\/\/|www\.)[\x21-\x7e]+[\w\/=]|\w([\w._-])+@\w[\w\._-]+\.(com|cn|org|net|info|tv|cc|gov|edu)|(\w[\w._-]+\.(com|cn|org|net|info|tv|cc|gov|edu))(\/[\x21-\x7e]*[\w\/])?|ed2k:\/\/[\x21-\x7e]+\|\/|thunder:\/\/[\x21-\x7e]+=)/gi;
-
 urlPrefixes = ['http://', 'https://', 'ftp://', 'thunder://', 'ed2k://', 'mailto://', 'file://'];
-
 clearLink = function (event) {
   var j, len, link, prefix, ref, ref1, url;
   link = (ref = event.originalTarget) != null ? ref : event.target;
@@ -57,9 +55,7 @@ clearLink = function (event) {
     return link.setAttribute("href", "http://" + url);
   }
 };
-
 document.addEventListener("mouseover", clearLink);
-
 setLink = function (candidate) {
   var ref, ref1, ref2, span, text;
   if (candidate == null || ((ref = candidate.parentNode) != null ? (ref1 = ref.className) != null ? typeof ref1.indexOf === "function" ? ref1.indexOf("textToLink") : void 0 : void 0 : void 0) !== -1 || candidate.nodeName === "#cdata-section") {
@@ -73,11 +69,8 @@ setLink = function (candidate) {
   span.innerHTML = text;
   return candidate.parentNode.replaceChild(span, candidate);
 };
-
 excludedTags = "a,svg,canvas,applet,input,button,area,pre,embed,frame,frameset,head,iframe,img,option,map,meta,noscript,object,script,style,textarea,code".split(",");
-
 xPath = `//text()[not(ancestor::${excludedTags.join(') and not(ancestor::')})]`;
-
 linkPack = function (result, start) {
   var i, j, k, ref, ref1, ref2, ref3, startTime;
   startTime = Date.now();
@@ -94,13 +87,11 @@ linkPack = function (result, start) {
     setLink(result.snapshotItem(i));
   }
 };
-
 linkify = function (node) {
   var result;
   result = document.evaluate(xPath, node, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
   return linkPack(result, 0);
 };
-
 linkFilter = function (node) {
   var j, len, tag;
   for (j = 0, len = excludedTags.length; j < len; j++) {
@@ -111,17 +102,16 @@ linkFilter = function (node) {
   }
   return NodeFilter.FILTER_ACCEPT;
 };
-
 observePage = function (root) {
   var tW;
-  tW = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { //+ NodeFilter.SHOW_ELEMENT,
+  tW = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    //+ NodeFilter.SHOW_ELEMENT,
     acceptNode: linkFilter
   }, false);
   while (tW.nextNode()) {
     setLink(tW.currentNode);
   }
 };
-
 observer = new window.MutationObserver(function (mutations) {
   var Node, j, k, len, len1, mutation, ref;
   for (j = 0, len = mutations.length; j < len; j++) {
@@ -135,7 +125,6 @@ observer = new window.MutationObserver(function (mutations) {
     }
   }
 });
-
 linkMixInit = function () {
   if (window !== window.top || window.document.title === "") {
     return;
@@ -148,5 +137,4 @@ linkMixInit = function () {
     subtree: true
   });
 };
-
 setTimeout(linkMixInit, 100);
